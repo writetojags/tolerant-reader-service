@@ -22,3 +22,11 @@ jobs:
 
     - name: Build and Test with Maven
       run: mvn clean verify
+      
+    - name: Analyze with SonarCloud
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        projectBaseDir: .
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
