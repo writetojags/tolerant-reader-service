@@ -40,6 +40,8 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         
     # Run check for vulnerabilities
+    - name: Install Snyk CLI
+      run: npm install -g snyk
     - name: Run Snyk to check for vulnerabilities
       run: snyk test --all-projects
       env:
