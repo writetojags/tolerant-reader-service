@@ -41,7 +41,7 @@ jobs:
         
     # check for vulnerabilities
     - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/maven@master
+      uses: snyk/actions/github@master
       with:
         args: test --all-projects
       env:
