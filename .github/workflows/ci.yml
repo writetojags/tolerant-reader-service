@@ -39,7 +39,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         
-
+    # check for vulnerabilities
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/maven@v1
       with:
