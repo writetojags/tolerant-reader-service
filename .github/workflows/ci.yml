@@ -41,7 +41,7 @@ jobs:
         
     # Run check for vulnerabilities
     - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/maven-scan@v1
+      uses: snyk/actions/snyk@v1
       with:
         args: test --all-projects
       env:
