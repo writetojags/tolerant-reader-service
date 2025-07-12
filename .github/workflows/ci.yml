@@ -33,3 +33,10 @@ jobs:
           -Dsonar.branch.name=main
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@v1
+      with:
+        args: test --all-projects
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
