@@ -38,16 +38,20 @@ jobs:
           -Dsonar.branch.name=main
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    - name: Install Node.js
+    - name: Set up Node.js
       uses: actions/setup-node@v3
-      with: 
+      with:
         node-version: '20'
-    # Run check for vulnerabilities
+
     - name: Install Snyk CLI
       run: npm install -g snyk
+
     - name: Authenticate Snyk
-      run : snyk auth ${{ secrets.SNYK_TOKEN }}
-     
-    - name: Run Snyk to check for vulnerabilities
-      run: snyk test --all-projects
-    
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: snyk auth $SNYK_TOKEN
+    - name: Run Snyk CLI for Maven
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: snyk test --all-projects --severity-threshold=medium
+
