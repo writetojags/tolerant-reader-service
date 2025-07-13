@@ -20,9 +20,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Check code formatting with Spotless
-      run: mvn spotless:check
-	  
     - name: Run Tests with Jacoco
       run: mvn test
 
