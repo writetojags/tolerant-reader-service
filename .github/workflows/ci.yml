@@ -19,7 +19,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        
+		
+	- name: Check code formatting with Spotless
+	  run: mvn spotless:check
+	      
     - name: Run Tests with Jacoco
       run: mvn test
 
@@ -41,6 +44,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '20'
+		
     - name: Install Snyk CLI
       run: npm install -g snyk
     - name: Authenticate Snyk
