@@ -22,28 +22,33 @@ jobs:
         
     - name: Check code formatting with Spotless
       run: mvn spotless:check
-
+	  
+	- name: Run Tests with Jacoco
+	  run: mvn test
 
     - name: Build and Test with Maven
       run: mvn clean verify
 
-    - name: Analyze with SonarCloud
-      uses: SonarSource/sonarcloud-github-action@v2
-      with:
-        projectBaseDir: .
-        args: >
-          -Dsonar.organization=writetojags
-          -Dsonar.projectKey=writetojags_tolerant-reader-service
-          -Dsonar.java.binaries=target/classes
-          -Dsonar.branch.name=main
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        
-    # check for vulnerabilities
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/maven@master
-      uses: snyk/actions/node@v1
-      with:
-        args: test --all-projects
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+	- name: Analyze with SonarCloud
+	  uses: SonarSource/sonarcloud-github-action@v2
+	  with:
+	    projectBaseDir: .
+	    args: >
+	      -Dsonar.organization=writetojags
+	      -Dsonar.projectKey=writetojags_tolerant-reader-service
+	      -Dsonar.java.binaries=target/classes
+	      -Dsonar.branch.name=main
+	  env:
+	    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+	- name: Set up Node.js
+	  uses: actions/setup-node@v3
+	  with:
+	     node-version: '20'
+
+	- name: Install Snyk CLI
+	  run: npm install -g snyk
+
+	- name: Authenticate Snyk
+	  env:
+	    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+	  run: snyk auth $SNYK_TOKEN
